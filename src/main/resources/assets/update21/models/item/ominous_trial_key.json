@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "update21:item/ominous_trial_key"
+  }
+}

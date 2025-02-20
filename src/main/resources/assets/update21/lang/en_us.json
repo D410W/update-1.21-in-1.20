@@ -1,0 +1,16 @@
+{
+  "item.update21.trial_key": "Trial Key",
+  "item.update21.ominous_trial_key": "Ominous Trial Key",
+  "item.update21.breeze_rod": "Breeze Rod",
+
+  "block.update21.chiseled_copper": "Chiseled Copper",
+  "block.update21.exposed_chiseled_copper": "Exposed Chiseled Copper",
+  "block.update21.weathered_chiseled_copper": "Weathered Chiseled Copper",
+  "block.update21.oxidized_chiseled_copper": "Oxidized Chiseled Copper",
+  "block.update21.waxed_chiseled_copper": "Waxed Chiseled Copper",
+  "block.update21.waxed_exposed_chiseled_copper": "Waxed Exposed Chiseled Copper",
+  "block.update21.waxed_weathered_chiseled_copper": "Waxed Weathered Chiseled Copper",
+  "block.update21.waxed_oxidized_chiseled_copper": "Waxed Oxidized Chiseled Copper",
+
+  "creativetab.update21_tab": "Update 1.21"
+}
