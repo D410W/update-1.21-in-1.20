@@ -19,10 +19,6 @@ public class ModCreativeModeTab {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.TRIAL_KEY.get()))
                     .title(Component.translatable("creativetab.update21_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(ModItems.TRIAL_KEY.get());
-                        output.accept(ModItems.OMINOUS_TRIAL_KEY.get());
-                        output.accept(ModItems.BREEZE_ROD.get());
-
                         output.accept(ModBlocks.CHISELED_COPPER.get());
                         output.accept(ModBlocks.EXPOSED_CHISELED_COPPER.get());
                         output.accept(ModBlocks.WEATHERED_CHISELED_COPPER.get());
@@ -31,6 +27,19 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
                         output.accept(ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
                         output.accept(ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+
+                        output.accept(ModBlocks.COPPER_BULB.get());
+                        output.accept(ModBlocks.EXPOSED_COPPER_BULB.get());
+                        output.accept(ModBlocks.WEATHERED_COPPER_BULB.get());
+                        output.accept(ModBlocks.OXIDIZED_COPPER_BULB.get());
+                        output.accept(ModBlocks.WAXED_COPPER_BULB.get());
+                        output.accept(ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+                        output.accept(ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+                        output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+
+                        output.accept(ModItems.TRIAL_KEY.get());
+                        output.accept(ModItems.OMINOUS_TRIAL_KEY.get());
+                        output.accept(ModItems.BREEZE_ROD.get());
                     })
                     .build());
 

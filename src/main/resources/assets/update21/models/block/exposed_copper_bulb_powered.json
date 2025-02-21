@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "update21:block/exposed_copper_bulb_powered"
+  }
+}

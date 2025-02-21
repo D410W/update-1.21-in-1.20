@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "update21:block/oxidized_copper_bulb"
+  }
+}
