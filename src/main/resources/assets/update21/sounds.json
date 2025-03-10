@@ -1,0 +1,92 @@
+{
+  "block.copper_bulb.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "update21:block/copper_bulb/copper_bulb_place1",
+      "update21:block/copper_bulb/copper_bulb_place2",
+      "update21:block/copper_bulb/copper_bulb_place3",
+      "update21:block/copper_bulb/copper_bulb_place4"
+    ]
+  },
+  "block.copper_bulb.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "update21:block/copper_bulb/copper_bulb_break1",
+      "update21:block/copper_bulb/copper_bulb_break2",
+      "update21:block/copper_bulb/copper_bulb_break3",
+      "update21:block/copper_bulb/copper_bulb_break4"
+    ]
+  },
+  "block.copper_bulb.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "update21:block/copper_bulb/copper_bulb_step1",
+      "update21:block/copper_bulb/copper_bulb_step2",
+      "update21:block/copper_bulb/copper_bulb_step3",
+      "update21:block/copper_bulb/copper_bulb_step4",
+      "update21:block/copper_bulb/copper_bulb_step5",
+      "update21:block/copper_bulb/copper_bulb_step6"
+    ]
+  },
+  "block.copper_bulb.toggle": {
+    "subtitle": "subtitles.block.copper_bulb.toggle",
+    "sounds": [
+      "update21:block/copper_bulb/copper_bulb_toggle"
+    ]
+  },
+  "block.copper_grate.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "update21:block/copper_grate/copper_grate_break1",
+      "update21:block/copper_grate/copper_grate_break2",
+      "update21:block/copper_grate/copper_grate_break3",
+      "update21:block/copper_grate/copper_grate_break4"
+    ]
+  },
+  "block.copper_grate.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "update21:block/copper_grate/copper_grate_break1",
+      "update21:block/copper_grate/copper_grate_break2",
+      "update21:block/copper_grate/copper_grate_break3",
+      "update21:block/copper_grate/copper_grate_break4",
+      "update21:block/copper_grate/copper_grate_break1"
+    ]
+  },
+  "block.copper_grate.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "update21:block/copper_grate/copper_grate_break1",
+      "update21:block/copper_grate/copper_grate_break2",
+      "update21:block/copper_grate/copper_grate_break3",
+      "update21:block/copper_grate/copper_grate_break4"
+    ]
+  },
+  "block.copper_door.open": {
+    "subtitle": "subtitles.block.door.toggle",
+    "sounds": [
+      "update21:block/copper_door/copper_door_toggle1",
+      "update21:block/copper_door/copper_door_toggle2",
+      "update21:block/copper_door/copper_door_toggle2",
+      "update21:block/copper_door/copper_door_toggle3",
+      "update21:block/copper_door/copper_door_toggle3"
+    ]
+  },
+  "block.copper_door.close": {
+    "subtitle": "subtitles.block.door.toggle",
+    "sounds": [
+      "update21:block/copper_door/copper_door_toggle1",
+      "update21:block/copper_door/copper_door_toggle2",
+      "update21:block/copper_door/copper_door_toggle3"
+    ]
+  },
+  "block.copper_trapdoor.toggle": {
+    "subtitle": "subtitles.block.copper_trapdoor.toggle",
+    "sounds": [
+      "update21:block/copper_trapdoor/copper_trapdoor_toggle1",
+      "update21:block/copper_trapdoor/copper_trapdoor_toggle2",
+      "update21:block/copper_trapdoor/copper_trapdoor_toggle3",
+      "update21:block/copper_trapdoor/copper_trapdoor_toggle2"
+    ]
+  }
+}

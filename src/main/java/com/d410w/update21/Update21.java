@@ -1,23 +1,21 @@
 package com.d410w.update21;
 
+import com.d410w.update21.ModData.BlockDataManager;
+import com.d410w.update21.ModData.DelayedBlockHandler;
+import com.d410w.update21.ModData.ModBlockStateProvider;
+import com.d410w.update21.ModData.ModSoundEvents;
 import com.d410w.update21.block.ModBlocks;
-import com.d410w.update21.block.WeatherState;
 import com.d410w.update21.item.ModItems;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,17 +26,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
-
-import java.util.HashMap;
 
 import static com.d410w.update21.block.ModBlocks.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Update21.MODID)
+@Mod.EventBusSubscriber(modid = "your_mod_id", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Update21 {
 
     // Define mod id in a common place for everything to reference
@@ -51,8 +45,10 @@ public class Update21 {
 
         ModCreativeModeTab.register(modEventBus);
 
-        ModItems.register(modEventBus);
+        ModSoundEvents.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -95,6 +91,15 @@ public class Update21 {
             event.accept(WAXED_EXPOSED_CHISELED_COPPER);
             event.accept(WAXED_WEATHERED_CHISELED_COPPER);
             event.accept(WAXED_OXIDIZED_CHISELED_COPPER);
+
+            event.accept(COPPER_GRATE);
+            event.accept(EXPOSED_COPPER_GRATE);
+            event.accept(WEATHERED_COPPER_GRATE);
+            event.accept(OXIDIZED_COPPER_GRATE);
+            event.accept(WAXED_COPPER_GRATE);
+            event.accept(WAXED_EXPOSED_COPPER_GRATE);
+            event.accept(WAXED_WEATHERED_COPPER_GRATE);
+            event.accept(WAXED_OXIDIZED_COPPER_GRATE);
         }
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             event.accept(COPPER_BULB);
@@ -124,5 +129,25 @@ public class Update21 {
             // Some client setup code
             LOGGER.info("HELLO FROM UPDATE 1.21 CLIENT SETUP");
         }
+    }
+
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    public class ModEventHandler {
+        @SubscribeEvent
+        public static void onServerTick(TickEvent.ServerTickEvent event) {
+            if (event.phase == TickEvent.ServerTickEvent.Phase.END) {
+                DelayedBlockHandler.tick(); // Update delayed block placements
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void gatherData(final GatherDataEvent event) {
+        DataGenerator gen = event.getGenerator();
+        PackOutput packOutput = gen.getPackOutput();
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+
+        // Register providers
+        gen.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
     }
 }

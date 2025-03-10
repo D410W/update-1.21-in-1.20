@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "update21:chiseled_copper",
+    "update21:exposed_chiseled_copper",
+    "update21:weathered_chiseled_copper",
+    "update21:oxidized_chiseled_copper",
+    "update21:waxed_chiseled_copper",
+    "update21:waxed_exposed_chiseled_copper",
+    "update21:waxed_weathered_chiseled_copper",
+    "update21:waxed_oxidized_chiseled_copper",
+
+    "update21:copper_grate",
+    "update21:exposed_copper_grate",
+    "update21:weathered_copper_grate",
+    "update21:oxidized_copper_grate",
+    "update21:waxed_copper_grate",
+    "update21:waxed_exposed_copper_grate",
+    "update21:waxed_weathered_copper_grate",
+    "update21:waxed_oxidized_copper_grate",
+
+    "update21:copper_bulb",
+    "update21:exposed_copper_bulb",
+    "update21:weathered_copper_bulb",
+    "update21:oxidized_copper_bulb",
+    "update21:waxed_copper_bulb",
+    "update21:waxed_exposed_copper_bulb",
+    "update21:waxed_weathered_copper_bulb",
+    "update21:waxed_oxidized_copper_bulb"
+  ]
+}

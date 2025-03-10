@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "E E",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:copper_block"
+    }
+  },
+  "result": {
+    "item": "update21:copper_grate",
+    "count": 4
+  }
+}

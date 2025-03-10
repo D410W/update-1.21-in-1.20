@@ -21,5 +21,15 @@
   "block.update21.waxed_weathered_copper_bulb": "Waxed Weathered Copper Bulb",
   "block.update21.waxed_oxidized_copper_bulb": "Waxed Oxidized Copper Bulb",
 
+  "block.update21.copper_grate": "Copper Grate",
+  "block.update21.exposed_copper_grate": "Exposed Copper Grate",
+  "block.update21.weathered_copper_grate": "Weathered Copper Grate",
+  "block.update21.oxidized_copper_grate": "Oxidized Copper Grate",
+  "block.update21.waxed_copper_grate": "Waxed Copper Grate",
+  "block.update21.waxed_exposed_copper_grate": "Waxed Exposed Copper Grate",
+  "block.update21.waxed_weathered_copper_grate": "Waxed Weathered Copper Grate",
+  "block.update21.waxed_oxidized_copper_grate": "Waxed Oxidized Copper Grate",
+
+
   "creativetab.update21_tab": "Update 1.21"
 }

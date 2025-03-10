@@ -11,6 +11,9 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import static com.d410w.update21.block.ModBlocks.*;
+import static com.d410w.update21.block.ModBlocks.WAXED_OXIDIZED_COPPER_GRATE;
+
 public class ModCreativeModeTab {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Update21.MODID);
@@ -36,6 +39,15 @@ public class ModCreativeModeTab {
                         output.accept(ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
                         output.accept(ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
                         output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+
+                        output.accept(ModBlocks.COPPER_GRATE.get());
+                        output.accept(ModBlocks.EXPOSED_COPPER_GRATE.get());
+                        output.accept(ModBlocks.WEATHERED_COPPER_GRATE.get());
+                        output.accept(ModBlocks.OXIDIZED_COPPER_GRATE.get());
+                        output.accept(ModBlocks.WAXED_COPPER_GRATE.get());
+                        output.accept(ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+                        output.accept(ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+                        output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
 
                         output.accept(ModItems.TRIAL_KEY.get());
                         output.accept(ModItems.OMINOUS_TRIAL_KEY.get());

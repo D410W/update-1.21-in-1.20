@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "E E",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:weathered_copper_block"
+    }
+  },
+  "result": {
+    "item": "update21:weathered_copper_grate",
+    "count": 4
+  }
+}

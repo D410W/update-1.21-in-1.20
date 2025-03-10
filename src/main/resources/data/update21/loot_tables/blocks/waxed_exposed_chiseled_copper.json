@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "update21:waxed_exposed_chiseled_copper"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

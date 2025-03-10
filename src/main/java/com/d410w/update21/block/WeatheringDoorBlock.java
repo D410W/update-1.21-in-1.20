@@ -1,8 +1,11 @@
 package com.d410w.update21.block;
 
+import com.d410w.update21.ModData.DelayedBlockHandler;
+import com.d410w.update21.ModData.ModBlockSetTypes;
 import com.d410w.update21.Update21;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -17,31 +20,33 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class WeatheringBlock extends Block implements ChangeOverTimeBlock<WeatherState> {// Store RegistryObjects
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+public class WeatheringDoorBlock extends DoorBlock implements ChangeOverTimeBlock<WeatherState> {
     private Map<Boolean, Map<WeatherState, BlockState>> hashType;
     private Map<Boolean, Map<WeatherState, BlockState>> weatheringStates;
     private WeatherState weatherState = WeatherState.UNAFFECTED;
     public static final EnumProperty<WeatherState> OXIDATION = EnumProperty.create("oxidation", WeatherState.class);
     public static final BooleanProperty WAXED = BooleanProperty.create("waxed");
 
-    public WeatheringBlock(Properties properties, WeatherState weatherState, boolean waxState, HashMap passedHash) {
-        super(properties);
+    public WeatheringDoorBlock(Properties properties, WeatherState weatherState, boolean waxState, HashMap passedHash) {
+        super(properties, ModBlockSetTypes.COPPER_TYPE);
         registerDefaultState(defaultBlockState()
                 .setValue(OXIDATION, weatherState)
                 .setValue(WAXED, waxState));
@@ -103,7 +108,7 @@ public class WeatheringBlock extends Block implements ChangeOverTimeBlock<Weathe
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!level.isClientSide && !state.getValue(WAXED)) {
+        if (!level.isClientSide && !state.getValue(WAXED) && state.getValue(HALF) == DoubleBlockHalf.LOWER) {
             float chance = getOxidationChance(state, level, pos, random);
             if (random.nextFloat() < chance) {
                 tryTransition(state, level, pos);
@@ -190,9 +195,7 @@ public class WeatheringBlock extends Block implements ChangeOverTimeBlock<Weathe
         if (nextState != currentState) {
             BlockState nextBlockState = weatheringStates.get(false).get(nextState);
             if (nextBlockState != null) { // Handle the initial state (null BlockState)
-                changeBlock(level, pos, state, nextBlockState, 2); // The '2' flag prevents block update notifications that could cause infinite loops.
-            } else {
-                changeBlock(level, pos, state, state.setValue(OXIDATION, nextState), 2); // Update the state if no block change is needed
+                changeBlock(level, pos, state, nextBlockState, Block.UPDATE_ALL); // The '2' flag prevents block update notifications that could cause infinite loops.
             }
         }
     }
@@ -219,7 +222,7 @@ public class WeatheringBlock extends Block implements ChangeOverTimeBlock<Weathe
             if (nextBlockState != blockState) {
 
                 if (nextBlockState != null) { // CRUCIAL NULL CHECK
-                    changeBlock(level, pos, blockState, nextBlockState, 11); // Now this is safe
+                    changeBlock(level, pos, blockState, nextBlockState, Block.UPDATE_ALL); // Now this is safe
                     // ... rest of your code
                 } else {
                     LOGGER.error("nextBlockState is null! isWaxed: {}, nextState: {}", WAXED, nextBlockState); // Log the error!
@@ -252,7 +255,7 @@ public class WeatheringBlock extends Block implements ChangeOverTimeBlock<Weathe
 
             if (!isWaxed) {
 
-                changeBlock(level, pos, blockState, nextBlockState, 11);
+                changeBlock(level, pos, blockState, nextBlockState, Block.UPDATE_ALL);
 
                 level.playSound(player, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
 
@@ -268,22 +271,48 @@ public class WeatheringBlock extends Block implements ChangeOverTimeBlock<Weathe
 
         }
 
-        return InteractionResult.PASS;
+        super.use(blockState, level, pos, player, hand, hitResult);
 
+        return InteractionResult.SUCCESS;
     }
 
-    public void changeBlock(Level level, BlockPos pos,BlockState prevBlockState, BlockState nextBlockState, int num) {
+    public void changeBlock(Level level, BlockPos pos, BlockState prevBlockState, BlockState nextBlockState, int num) {
+        // Copy all properties except OXIDATION and WAXED to the new state
         ImmutableMap<Property<?>, Comparable<?>> prevValues = prevBlockState.getValues();
         for (Map.Entry<Property<?>, Comparable<?>> entry : prevValues.entrySet()) {
             Property<?> property = entry.getKey();
             Comparable<?> value = entry.getValue();
-
             if (property != OXIDATION && property != WAXED) {
-                // Use a helper method to handle type casting safely
                 nextBlockState = copyProperty(nextBlockState, property, value);
             }
         }
+        BlockPos otherPos = prevBlockState.getValue(HALF) == DoubleBlockHalf.LOWER ?
+                pos.above() : pos.below();
+
+        if (!level.isClientSide) {
+            // Schedule placement of, e.g., STONE after 20 ticks (1 second)
+            DelayedBlockHandler.schedule(
+                    (ServerLevel) level,
+                    pos,
+                    Blocks.STONE.defaultBlockState(), // Replace with your desired block
+                    20
+            );
+        }
+
+        level.setBlock(otherPos, Blocks.AIR.defaultBlockState(), num);
+        level.setBlock(pos, Blocks.AIR.defaultBlockState(), num);
+
+        // Update the current block
         level.setBlock(pos, nextBlockState, num);
+
+        // Update the other half of the door (upper or lower)
+
+        // Create a new state for the other half with the same oxidation/waxed state
+        BlockState otherNextState = nextBlockState
+                .setValue(HALF, prevBlockState.getValue(HALF) == DoubleBlockHalf.LOWER ?
+                        DoubleBlockHalf.UPPER : DoubleBlockHalf.LOWER);
+        // Copy properties for the other half
+        level.setBlock(otherPos, otherNextState, num);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
