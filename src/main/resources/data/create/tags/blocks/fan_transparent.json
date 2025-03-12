@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "update21:copper_grate",
+    "update21:exposed_copper_grate",
+    "update21:weathered_copper_grate",
+    "update21:oxidized_copper_grate",
+    "update21:waxed_copper_grate",
+    "update21:waxed_exposed_copper_grate",
+    "update21:waxed_weathered_copper_grate",
+    "update21:waxed_oxidized_copper_grate"
+  ]
+}
